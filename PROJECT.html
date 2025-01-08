@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Mycss.css">
+</head>
+<body>
+    <div class="container">
+        <div class='card'>
+            <h1><Center>Registration Form</Center></h1>
+            <form class="regisform" name="form" autocomplete="off">
+                <div>
+                    <label>Employee_name:</label>
+                    <input type="text" name="Employee_name" id="Employee_name" class="form-control"><br>
+                </div>
+                <div>
+                    <label>Employee_mobile:</label>
+                    <input type="text" name="Employee_mobile" id="Employee_mobile" class="form-control"><br>
+                </div>
+                <div>
+                    <label>Employee_email:</label>
+                    <input type="email" name="Employee_email_noautocomplete" id="Employee_email" class="form-control"><br>
+                </div>
+                <div>
+                    <label> Employee_password:</label>
+                    <input type="password" name="Employee_password_noautocomplete" id="Employee_password" class="form-control"><br>
+                </div>
+                <div>
+                    <label>Employee_address:</label>
+                    <input type="text" name="Employee_address" id="Employee_address" class="form-control"><br>
+                </div>
+                <div>
+                    <label>Employee_experience:</label>
+                    <input type="text" name="Employee_experience" id="Employee_experience" class="form-control"><br>
+                </div>
+                <div>
+                    <label>Employee_id_proof:</label>
+                    <input type="text" name="Employee_id_proof" id="Employee_id_proof" class="form-control"><br>
+                </div>
+                <button type="button" onclick="saveData()" class="btn btn-primary" id="savedata">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='Myloginform.html';">Logout</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    function saveData(){
+        let Employee_name = document.getElementById("Employee_name").value;
+        let Employee_mobile = document.getElementById("Employee_mobile").value;
+        let Employee_email = document.getElementById("Employee_email").value;
+        let Employee_password= document.getElementById("Employee_password").value;
+        let Employee_address= document.getElementById("Employee_address").value;
+        let Employee_experience= document.getElementById("Employee_experience").value;
+        let Employee_id_proof= document.getElementById("Employee_id_proof").value;
+
+        const data = {
+            Employee_name:Employee_name,
+            Employee_mobile:Employee_mobile,
+            Employee_email:Employee_email,
+            Employee_password: Employee_password,
+            Employee_address: Employee_address,
+            Employee_experience:Employee_experience,           
+            Employee_id_proof: Employee_id_proof    
+        };
+
+        fetch('http://localhost:5000/api/employe/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Data saved successfully');
+            } else {
+                console.error('Failed to save data');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    } 
+</script>
+</html>
